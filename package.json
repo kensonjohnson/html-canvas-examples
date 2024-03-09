@@ -1,0 +1,17 @@
+{
+  "name": "html-canvas-examples",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc && vite build",
+    "preview": "vite preview"
+  },
+  "devDependencies": {
+    "@types/node": "^20.11.25",
+    "glob": "^10.3.10",
+    "typescript": "^5.2.2",
+    "vite": "^5.1.4"
+  }
+}
