@@ -40,9 +40,10 @@ class HeaderElement extends HTMLElement {
           this.#links.length > 0
             ? this.#links
                 .map((link) => {
+                  const linkPath = import.meta.env.BASE_URL + link.path;
                   // find the active link from url
-                  const isActive = window.location.pathname === "/" + link.path;
-                  return `<a href="${import.meta.env.BASE_URL + link.path}" ${isActive ? 'class="active"' : ""}>${link.name}</a>`;
+                  const isActive = window.location.pathname === linkPath;
+                  return `<a href="${linkPath}" ${isActive ? 'class="active"' : ""}>${link.name}</a>`;
                 })
                 .join("")
             : ""
