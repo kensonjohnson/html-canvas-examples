@@ -1,17 +1,48 @@
-class Header extends HTMLElement {
+import { headerLinks } from "../constants";
+
+declare global {
+  interface HTMLElementTagNameMap {
+    "app-header": HeaderElement;
+  }
+}
+
+type Link = {
+  path: string;
+  name: string;
+};
+
+class HeaderElement extends HTMLElement {
   shadow: ShadowRoot;
+  #links: Link[];
 
   constructor() {
     super();
 
     this.shadow = this.attachShadow({ mode: "open" });
+    this.#links = headerLinks;
+    this.render();
+  }
+
+  get links() {
+    return this.#links;
+  }
+
+  set links(value: Link[]) {
+    this.#links = value;
     this.render();
   }
 
   render() {
     this.shadow.innerHTML = /*html*/ `
     <header>
-        <h1>Header</h1>
+        <h1>HTML Canvas Examples</h1>
+        <nav>${
+          this.#links.length > 0
+            ? this.#links
+                .map((link) => `<a href="${link.path}">${link.name}</a>`)
+                .join("")
+            : ""
+        }</nav>
     </header>
 
     <style>
@@ -23,10 +54,21 @@ class Header extends HTMLElement {
       h1 {
         color: white;
         margin: 0;
+        padding-left: 10px;
+      }
+      nav {
+        margin: 0;
+        padding: 10px;
+        background-color: #444;
+        display: flex;
+        justify-content: start;
+        gap: 10px;
+        flex-wrap: wrap;
       }
     </style>
     `;
   }
 }
 
-customElements.define("app-header", Header);
+customElements.define("app-header", HeaderElement);
+document.body.prepend(document.createElement("app-header"));
