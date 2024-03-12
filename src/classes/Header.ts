@@ -39,7 +39,11 @@ class HeaderElement extends HTMLElement {
         <nav>${
           this.#links.length > 0
             ? this.#links
-                .map((link) => `<a href="${link.path}">${link.name}</a>`)
+                .map((link) => {
+                  // find the active link from url
+                  const isActive = window.location.pathname === link.path;
+                  return `<a href="${link.path}" ${isActive ? 'class="active"' : ""}>${link.name}</a>`;
+                })
                 .join("")
             : ""
         }</nav>
@@ -64,6 +68,16 @@ class HeaderElement extends HTMLElement {
         justify-content: start;
         gap: 10px;
         flex-wrap: wrap;
+      }
+      a {
+        color: white;
+        text-decoration: none;
+      }
+      a:hover {
+        text-decoration: underline;
+      }
+      .active {
+        color: lightskyblue;
       }
     </style>
     `;
